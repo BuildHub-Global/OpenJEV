@@ -8,9 +8,15 @@
 - In-memory telemetry and cache
 - Mock and Ollama reference adapters
 
+## v0.1.1 — launch preparation
+
+- OpenAI-compatible non-streaming text adapter
+- Offline verification/fallback demo
+- npm packaging, declarations, and isolated consumer validation
+
 ## v0.2 — adapter ecosystem
 
-- OpenAI-compatible adapter
+- Streaming and richer OpenAI-compatible adapter capabilities
 - MCP adapter
 - HTTP/API adapter
 - Browser/computer-use adapter interface

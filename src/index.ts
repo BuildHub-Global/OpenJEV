@@ -7,3 +7,4 @@ export * from './telemetry/types.js';
 export * from './telemetry/in-memory.js';
 export * from './adapters/mock-worker.js';
 export * from './adapters/ollama-worker.js';
+export * from './adapters/openai-compatible-worker.js';

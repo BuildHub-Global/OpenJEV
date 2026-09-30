@@ -2,6 +2,7 @@ import {
   InMemoryTelemetry,
   MockWorker,
   OpenJevEngine,
+  OpenJevRouter,
   type Task,
   type Verifier,
 } from '../src/index.js';
@@ -44,8 +45,21 @@ const verifier: Verifier<string> = {
 };
 
 const telemetry = new InMemoryTelemetry();
-const engine = new OpenJevEngine({ telemetry, policy: { maxAttempts: 2 } });
+// Make the demo's first choice deterministic: prioritize latency over reliability.
+const router = new OpenJevRouter({ cost: 0.2, latency: 0.5, reliability: 0.2, cacheAffinity: 0.1 });
+const engine = new OpenJevEngine({ router, telemetry, policy: { maxAttempts: 2 } });
 
+console.log('Ranked execution candidates:', await router.rank(task, [fastButWrong, slowerButCorrect]));
 const result = await engine.run(task, [fastButWrong, slowerButCorrect], verifier);
-console.log(result);
-console.log({ goodput: telemetry.goodput(), events: telemetry.events });
+if (result.workerId !== 'reliable-worker' || result.attempts !== 2 || telemetry.goodput() !== 0.5) {
+  throw new Error('Demo did not exercise verified fallback');
+}
+console.log('Verified result:', result);
+console.table(telemetry.events.map((event) => ({
+  worker: event.workerId,
+  attempt: event.attempt,
+  verified: event.verification.ok,
+  reason: event.verification.reason ?? 'PASS',
+  latencyMs: event.finishedAt - event.startedAt,
+})));
+console.log('Goodput (verified successes / execution attempts):', telemetry.goodput());
