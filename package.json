@@ -1,16 +1,31 @@
 {
   "name": "openjev",
-  "version": "0.1.0",
-  "description": "Open execution router and verification harness for AI agents, tools, and models.",
+  "version": "0.1.1",
+  "description": "Vendor-neutral execution routing and verification framework for AI agents, tools, models, and computer-use systems.",
   "type": "module",
   "license": "Apache-2.0",
   "main": "dist/src/index.js",
   "types": "dist/src/index.d.ts",
-  "files": ["dist", "README.md", "LICENSE"],
+  "exports": {
+    ".": {
+      "types": "./dist/src/index.d.ts",
+      "import": "./dist/src/index.js"
+    }
+  },
+  "repository": { "type": "git", "url": "git+https://github.com/BuildHub-Global/OpenJEV.git" },
+  "homepage": "https://github.com/BuildHub-Global/OpenJEV#readme",
+  "bugs": { "url": "https://github.com/BuildHub-Global/OpenJEV/issues" },
+  "keywords": ["ai", "agents", "execution-routing", "verification", "mcp", "ollama"],
+  "publishConfig": { "access": "public", "registry": "https://registry.npmjs.org/" },
+  "files": ["dist", "README.md", "LICENSE", "NOTICE"],
   "scripts": {
     "build": "tsc -p tsconfig.json",
     "test": "npm run build && node --test test/*.test.mjs",
-    "check": "npm run test"
+    "check": "npm run test",
+    "demo": "npm run build && node dist/examples/quickstart.js",
+    "check:package": "npm run build && node scripts/check-package.mjs",
+    "prepack": "npm run build",
+    "prepublishOnly": "npm test"
   },
   "engines": {
     "node": ">=20"

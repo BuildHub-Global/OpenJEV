@@ -45,9 +45,17 @@ Task
 ```bash
 npm install
 npm test
+npm run demo
 ```
 
-A minimal worker:
+The offline demo ranks two workers, rejects the first answer, falls back to a
+verified answer, and displays both attempts with goodput `0.5`. It requires no
+API key or running model server.
+
+The npm package is being prepared for publication. Until it is published, run the
+demo from a checkout. See [`docs/PUBLISHING.md`](docs/PUBLISHING.md) for the release gate.
+
+A minimal worker (ESM API):
 
 ```ts
 import { MockWorker, OpenJevEngine } from 'openjev';
@@ -89,6 +97,11 @@ console.log(result);
 - `InMemoryCache` — tiny cache interface and implementation
 - `MockWorker` — testing and examples
 - `OllamaWorker` — minimal local-model reference adapter
+- `OpenAICompatibleWorker` — non-streaming text adapter for compatible endpoints
+
+See [`docs/OPENAI_COMPATIBLE.md`](docs/OPENAI_COMPATIBLE.md) for endpoint configuration
+and limits. Live calls require an explicitly configured endpoint; the demo and
+tests stay offline.
 
 ## Architecture
 
@@ -138,7 +151,6 @@ See [`docs/ROADMAP.md`](docs/ROADMAP.md).
 
 Near-term priorities:
 
-- OpenAI-compatible worker adapter
 - MCP worker adapter
 - browser/computer-use worker interface
 - persistent telemetry
