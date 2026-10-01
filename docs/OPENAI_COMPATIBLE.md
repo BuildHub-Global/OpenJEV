@@ -4,7 +4,7 @@
 non-streaming `POST /chat/completions` request. The core has no provider SDK dependency.
 
 ```ts
-import { OpenAICompatibleWorker, OpenJevEngine } from 'openjev';
+import { OpenAICompatibleWorker, OpenJevEngine } from '@buildhubglobal/openjev';
 
 const worker = new OpenAICompatibleWorker({
   baseUrl: 'http://127.0.0.1:1234/v1',

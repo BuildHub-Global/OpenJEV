@@ -58,7 +58,7 @@ demo from a checkout. See [`docs/PUBLISHING.md`](docs/PUBLISHING.md) for the rel
 A minimal worker (ESM API):
 
 ```ts
-import { MockWorker, OpenJevEngine } from 'openjev';
+import { MockWorker, OpenJevEngine } from '@buildhubglobal/openjev';
 
 const worker = new MockWorker({
   id: 'local-text',
