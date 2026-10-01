@@ -23,7 +23,7 @@ try {
   runNpm(['install', join(directory, pack.filename), '--ignore-scripts', '--offline', '--no-audit', '--no-fund'], consumer);
   writeFileSync(join(consumer, 'check.mts'), `
 import assert from 'node:assert/strict';
-import { InMemoryTelemetry, MockWorker, OpenAICompatibleWorker, OpenJevEngine, type Worker } from 'openjev';
+import { InMemoryTelemetry, MockWorker, OpenAICompatibleWorker, OpenJevEngine, type Worker } from '@buildhubglobal/openjev';
 const telemetry = new InMemoryTelemetry();
 const wrong = new MockWorker({ id: 'wrong', capabilities: ['text'], estimate: { estimatedCost: 0, estimatedLatencyMs: 1, reliability: 1, cacheAffinity: 1 }, handler: () => 'FAIL' });
 const right = new MockWorker({ id: 'right', capabilities: ['text'], estimate: { estimatedCost: 1, estimatedLatencyMs: 100, reliability: 0.5, cacheAffinity: 0 }, handler: () => 'PASS' });
