@@ -1,6 +1,6 @@
 {
   "name": "@buildhubglobal/openjev",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "Vendor-neutral execution routing and verification framework for AI agents, tools, models, and computer-use systems.",
   "type": "module",
   "license": "Apache-2.0",

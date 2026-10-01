@@ -1,12 +1,28 @@
 # OpenJEV
 
-**Open execution routing and verification for AI agents, tools, and models.**
+Vendor-neutral execution routing and verification framework for AI agents, tools, models, and computer-use systems.
 
 OpenJEV is a vendor-neutral TypeScript runtime for deciding **how a task should be executed**, not only which model should answer it.
 
 A worker can be an LLM, local model, API, MCP server, shell executor, browser/computer-use agent, GUI agent, or a composite workflow. OpenJEV ranks eligible workers, executes the best candidate, verifies the result, falls back when necessary, and records telemetry that can improve future routing.
 
-> Status: **v0.1.0 foundation** — intentionally small, inspectable, and experimental.
+> Status: **v0.1.2 public launch** — small, inspectable, and experimental.
+
+## Installation
+
+Requires Node.js 20 or newer. The package is ESM-only and includes TypeScript declarations.
+
+```bash
+npm install @buildhubglobal/openjev
+```
+
+[npm package](https://www.npmjs.com/package/@buildhubglobal/openjev) · [Issues and feedback](https://github.com/BuildHub-Global/OpenJEV/issues)
+
+OpenJEV is vendor-neutral, verification-first, capability-aware, and telemetry-aware.
+Adapters are replaceable; privileged executors must be explicitly opted into.
+The current adapters are MockWorker, OllamaWorker, and OpenAICompatibleWorker.
+MCP, browser/computer-use, shell/code, and GUI executors are integration targets,
+not bundled adapters.
 
 ## Why
 
@@ -40,7 +56,7 @@ Task
   -> record telemetry
 ```
 
-## Quick start
+## Offline verified-fallback demo
 
 ```bash
 npm install
@@ -52,10 +68,12 @@ The offline demo ranks two workers, rejects the first answer, falls back to a
 verified answer, and displays both attempts with goodput `0.5`. It requires no
 API key or running model server.
 
-The npm package is being prepared for publication. Until it is published, run the
-demo from a checkout. See [`docs/PUBLISHING.md`](docs/PUBLISHING.md) for the release gate.
+Run the demo commands above from a repository checkout. See
+[`docs/PUBLISHING.md`](docs/PUBLISHING.md) for release validation.
 
-A minimal worker (ESM API):
+## Minimal TypeScript / ESM example
+
+Save as `example.mjs` and run `node example.mjs`, or use it in an ESM TypeScript project.
 
 ```ts
 import { MockWorker, OpenJevEngine } from '@buildhubglobal/openjev';
