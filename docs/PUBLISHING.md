@@ -1,40 +1,20 @@
 # Publishing OpenJEV
 
-The package is ESM-only and requires Node.js 20 or newer. It includes compiled
-JavaScript, TypeScript declarations, the offline demo, README, LICENSE, and NOTICE.
-It has no runtime npm dependencies.
+The official package is `@buildhubglobal/openjev`, ESM-only, Node.js 20 or newer, with TypeScript declarations and no runtime dependencies.
 
-The launch preparation increments the package to 0.1.1 because the published
-v0.1.0 GitHub tag predates the new adapter. Keep that foundation tag unchanged.
-npm rejected the unscoped name `openjev` because it is too similar to `open-jev`.
-The approved npm package name is `@buildhubglobal/openjev`.
+## Release history and consistency
+
+npm rejected the historical unscoped name `openjev` as too similar to `open-jev`.
+GitHub v0.1.1 predates the scoped-name change, while the published scoped npm v0.1.1 includes that change. Its recorded gitHead does not capture those working-tree edits. Preserve the historical tag and npm version. v0.1.2 aligns the source, documentation, package name, and publication from a clean main commit.
 
 ## Release gate
 
-1. Review and merge the preparation PR.
-2. On a clean checkout of the resulting commit, run:
+1. Review the focused release PR and merge only with passing checks.
+2. Validate `npm install`, `npm test`, `npm run demo`, `npm run check:package`, and `npm pack --dry-run`.
+3. Inspect tarball contents: compiled runtime, declarations, README, LICENSE, NOTICE, package metadata; no credentials or local state.
+4. Wait for main CI and create the versioned GitHub release at that exact main commit. Never rewrite existing public tags.
+5. Publish from the clean tagged checkout: confirm `npm whoami`, check the target version, then `npm publish --access public`. Complete required npm security confirmation without bypassing authentication.
+6. Verify `npm view @buildhubglobal/openjev version` returns `0.1.2` and the npm gitHead matches the release commit.
+7. Install `@buildhubglobal/openjev@0.1.2` from the public registry in a fresh directory; compile a TypeScript consumer and execute the ESM verification/fallback example.
 
-   ```bash
-   npm install
-   npm test
-   npm run demo
-   npm run check:package
-   npm pack --dry-run
-   ```
-
-3. Confirm the tarball contains `dist/src/index.js`, declarations, `LICENSE`, and
-   `NOTICE`, with no credentials, local state, or provider responses.
-4. Create the matching v0.1.1 GitHub release from that reviewed commit.
-5. Sign in to the intended npm publisher account using `npm login`, complete
-   any required 2FA, and check `npm whoami` and `npm view @buildhubglobal/openjev version`.
-6. Publish from the same checkout with `npm publish --access public`, completing
-   any required npm confirmation. Do not put an npm token in the repository.
-7. Verify `npm view @buildhubglobal/openjev version` returns `0.1.1`, then install `@buildhubglobal/openjev@0.1.1`
-   in a fresh directory and run the verification/fallback example.
-
-Publishing is a separate external release step. This preparation does not publish
-to npm, change the v0.1.0 tag, or automatically merge the PR.
-
-The package's `prepack` builds artifacts even on a clean checkout, and
-`prepublishOnly` runs the test suite. CI tests, runs the offline demo, and checks
-the actual tarball in an isolated consumer project before the release gate.
+The package's prepack builds artifacts and prepublishOnly runs tests. CI tests the offline demo and an isolated tarball consumer. Public announcements require separate user approval; docs/LAUNCH.md remains a review draft.

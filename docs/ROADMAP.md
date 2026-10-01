@@ -14,6 +14,11 @@
 - Offline verification/fallback demo
 - npm packaging, declarations, and isolated consumer validation
 
+## v0.1.2 — public launch
+
+- Official scoped npm package and source/release consistency
+- Installation and launch documentation
+
 ## v0.2 — adapter ecosystem
 
 - Streaming and richer OpenAI-compatible adapter capabilities
